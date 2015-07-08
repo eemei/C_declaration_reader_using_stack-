@@ -1,6 +1,7 @@
 #include "unity.h"
 #include "stackPush.h"
-#include "Token.h"
+#include "mock_Token.h"
+#include "addTwoToken.h"
 #include <string.h>
 #include "unity.h"
 #include <malloc.h>
@@ -50,12 +51,19 @@ void test_cpy(void){
 	//TEST_ASSERT_EQUAL_STRING(cpy(str,(char *)elem->item));   *****dun know how to test !!!!
 }
 
-// void xtest_stackadd(void){
-  // Stack *stack = stackCreate();
-  // StackElement *stackelem = malloc (sizeof (StackElement));
-  // StackElement *stackelem1 = stackelementCreate (2);
-  // StackElement *stackelem2 = stackelementCreate (3);
-  // StackElement *stackelem3 = stackelementCreate (4);
+void test_stackadd(void){
+  //fake a tree
+  //   int
+  //    |
+  //    [
+  //  /  \
+  //  x   2
+
+  
+  
+  // StackElement *stackelem1 = stackelementCreate (&datatype);
+  // StackElement *stackelem2 = stackelementCreate (&symbol);
+  // StackElement *stackelem3 = stackelementCreate (&name);
   // stackAdd (stack, stackelem1);
   // stackAdd (stack, stackelem2);
   // stackAdd (stack, stackelem3);
@@ -64,7 +72,5 @@ void test_cpy(void){
   // TEST_ASSERT_NOT_NULL (stackelem3);
   // TEST_ASSERT_EQUAL (3, stack->length);
   // TEST_ASSERT_EQUAL (stackelem3, stack->head);
-  // TEST_ASSERT_EQUAL (stackelem1, stack->tail);
-
-
-// }
+  // TEST_ASSERT_EQUAL (stackelem1, stack->tail); 
+}

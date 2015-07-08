@@ -5,5 +5,6 @@
 
 
 Token *addTwoToken( char *name, char *operatorSymbol, int rightValue);
+Token *addToken (char *name, char *symbol);
 
 #endif // addTwoToken_H

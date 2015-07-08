@@ -1,4 +1,5 @@
 #include "stackPush.h"
+#include "addTwoToken.h"
 #include "Token.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -28,8 +29,7 @@ StackElement *elementDestory(StackElement *elem){
 
 StackElement *stackRemove(Stack *stack){
 	StackElement *tempPtr, *popElem = malloc (sizeof(StackElement));
-	//int popValue;
-	//StackElement *pop, *popElem = malloc (sizeof(StackElement));
+
   if (stack->head == NULL){
     puts("nothing inside!!!!!!!!");
    return NULL;
@@ -69,13 +69,15 @@ StackElement *stackRemove(Stack *stack){
   if (stack->head == NULL){
     stack->tail = elem;
     stack->head = elem;
-    printf ("[%d] -> ", elem->item);
+    printf ("[@%d] -> ", elem->item);
 	stack->length=1;
   }
   
   else {
 	  elem->next = stack->head;
 	  stack->head = elem;
+    printf ("[2@%d] -> ", elem->item);
+   // printf ("[token_type:%d]\n", Tk->type);
 	  stack->length +=1;
   }
 }

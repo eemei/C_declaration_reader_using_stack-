@@ -10,7 +10,7 @@ typedef enum {
 	TOKEN_FLOAT_TYPE,
 	TOKEN_STRING_TYPE,
 	TOKEN_IDENTIFIER_TYPE,
-	//TOKEN_BOOLEAN_TYPE,
+	TOKEN_END_OF_STRING
 } TokenType;
 
 typedef enum {
@@ -23,12 +23,13 @@ typedef enum {
 	NONE,
 	LEFT_TO_RIGHT,
 	RIGHT_TO_LEFT,
-} Associativity;
+} Associativity;                                                                                                                                           
 
 typedef struct {
 	TokenType type;
   uint32_t startColumn;
   uint32_t length;
+	char *str;
 } Token;
 
 typedef struct {
@@ -36,6 +37,7 @@ typedef struct {
   uint32_t startColumn;
   uint32_t length;
 	int value;
+	char *str;
 } IntegerToken;
 
 typedef struct {
@@ -43,6 +45,7 @@ typedef struct {
   uint32_t startColumn;
   uint32_t length;
 	double value;
+	char *str;
 } FloatToken;
 
 typedef struct {
@@ -50,16 +53,20 @@ typedef struct {
   uint32_t startColumn;
   uint32_t length;
 	char *name;
+	char *str;
+  Token *token; //  attract 
 } IdentifierToken, StringToken;
 
 typedef struct {
 	TokenType type;
   uint32_t startColumn;
   uint32_t length;
+	char *str;
 	char *symbol;
 	Arity arity;
 	Token *token[0];
 } OperatorToken;
+
 
 // Token *createOperatorToken(char *symbol);
 // Token *createIntegerToken(int value);
@@ -69,3 +76,4 @@ IntegerToken *createIntegerToken(int value);
 IdentifierToken *createIdentifierToken (char *name);
 
 #endif // Token_H
+

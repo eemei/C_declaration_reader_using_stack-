@@ -72,3 +72,31 @@ void tearDown(void) {}
 	TEST_ASSERT_EQUAL_PTR (opeToken->type, root->type);
 	TEST_ASSERT_EQUAL_PTR(opeToken->symbol, root->symbol);
   }
+  
+  void test_attract_identifierToken_and_OperatorToken(void){
+    IdentifierToken *tree;
+    IdentifierToken *iden = malloc(sizeof(IdentifierToken )+(sizeof(Token *)));
+    OperatorToken *opeToken = malloc(sizeof(OperatorToken )+(sizeof(Token *)) * 2);
+    createOperatorToken_ExpectAndReturn ("[", opeToken);
+    createIdentifierToken_ExpectAndReturn("int", iden);
+    tree = (IdentifierToken *)addToken ("int", "[");
+    
+  TEST_ASSERT_EQUAL_PTR(iden, tree);
+	TEST_ASSERT_EQUAL_PTR(opeToken, tree->token);
+	TEST_ASSERT_EQUAL_PTR (iden->type, tree->type);
+	TEST_ASSERT_EQUAL_PTR(iden->name, tree->name);  
+  }
+  
+  void test_add_both_addTwoToken_addToken(void){
+    IdentifierToken *iden;
+    IntegerToken *intTk;
+    OperatorToken *ope;
+    
+    OperatorToken *opeToken = malloc(sizeof(OperatorToken )+(sizeof(Token *)) * 2);
+    IdentifierToken *iden = malloc(sizeof(IdentifierToken )+(sizeof(Token *)));
+    IntegerToken *int1 = malloc(sizeof(IntegerToken));
+    createIdentifierToken_ExpectAndReturn("int", iden);
+    
+  }
+  
+  

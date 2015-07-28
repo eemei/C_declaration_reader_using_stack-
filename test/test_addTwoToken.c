@@ -1,42 +1,16 @@
 #include "unity.h"
 #include "addTwoToken.h"
-#include "mock_Token.h"
+#include "Token.h"
 #include <malloc.h>
 #include <stdio.h>
 #include <stdlib.h>
 void setUp(void) {}
-
 void tearDown(void) {}
 
-  // void test_create_integerToken(void){
-    // IntegerToken *intToken = malloc (sizeof(IntegerToken));
-    // int value = 7;
-    // intToken = (IntegerToken *)createIntegerToken(value);
-    // TEST_ASSERT_EQUAL (7,intToken->value);
-    // TEST_ASSERT_EQUAL (1,intToken->type);
-    
-  // }
-  
-  // void test_create_identifierToken(void){
-    // IdentifierToken *idenToken = malloc (sizeof(IdentifierToken));
-    // char *name = "char";
-    // idenToken = (IdentifierToken *)createIdentifierToken(name);
-    // TEST_ASSERT_EQUAL_STRING ("char", idenToken->name);
-  // }
-
-  // void test_create_operatorToken(void){
-	  // char *symbol = "[";
-      // OperatorToken *opeToken = malloc(sizeof(OperatorToken) + (sizeof(Token *) * 2));
-	  // opeToken->type = TOKEN_OPERATOR_TYPE;
-	  // opeToken->symbol= symbol;
-	  // opeToken = (OperatorToken *)createOperatorToken (symbol);
-	  // TEST_ASSERT_EQUAL ("[", opeToken->symbol);
-  // }
-  
-  /* Add2Tokens generated a "small tree" connecting with "TWO TOKEN"  
+/*  
 *					operatorToken					example
-*				_________________						 [
-*				| symbol "["	|						/ \
+*				_________________							 [
+*				| symbol "["	|								/ \
 *				-----------------					   x  2
 *				|  Token[0]		|
 *				-----------------
@@ -49,54 +23,59 @@ void tearDown(void) {}
 *	|	name	|			| value		|
 *	_____________			_____________
 */
-
-  void test_add_two_tokens_and_connecting_with_operatorToken(void){
-	OperatorToken *root;
-	IdentifierToken *iden = malloc(sizeof(IdentifierToken));
-	OperatorToken *opeToken = malloc(sizeof(OperatorToken )+(sizeof(Token *)) * 2);
-	//IntegerToken int1 = {type:TOKEN_INTEGER_TYPE, value:2};
-	IntegerToken *int1 = malloc(sizeof(IntegerToken));
-	opeToken->type = TOKEN_OPERATOR_TYPE;
-	iden->type = TOKEN_IDENTIFIER_TYPE;
-	opeToken->symbol = "[";
-
-	createIdentifierToken_ExpectAndReturn("x", iden);
-	createIntegerToken_ExpectAndReturn (2, int1);
-	createOperatorToken_ExpectAndReturn("[", opeToken);
+  
+/*
+*				int 
+*				|
+*				[
+*			/		\
+*			x		2
+*			|
+*		NULL
+*
+*/
 	
-	root = (OperatorToken *)addTwoToken("x","[",2);
+void test_create_a_tree(void) {
+	IdentifierToken *root;
+	OperatorToken *opeTk;
+	IdentifierToken *idenTk, *leftTk;
+	IntegerToken *rightTk;
 	
-	TEST_ASSERT_EQUAL_PTR(opeToken, root);
-	TEST_ASSERT_EQUAL_PTR(int1, root->token [1]);
-	TEST_ASSERT_EQUAL_PTR(iden, root->token [0]);
-	TEST_ASSERT_EQUAL_PTR (opeToken->type, root->type);
-	TEST_ASSERT_EQUAL_PTR(opeToken->symbol, root->symbol);
-  }
-  
-  void test_attract_identifierToken_and_OperatorToken(void){
-    IdentifierToken *tree;
-    IdentifierToken *iden = malloc(sizeof(IdentifierToken )+(sizeof(Token *)));
-    OperatorToken *opeToken = malloc(sizeof(OperatorToken )+(sizeof(Token *)) * 2);
-    createOperatorToken_ExpectAndReturn ("[", opeToken);
-    createIdentifierToken_ExpectAndReturn("int", iden);
-    tree = (IdentifierToken *)addToken ("int", "[");
-    
-  TEST_ASSERT_EQUAL_PTR(iden, tree);
-	TEST_ASSERT_EQUAL_PTR(opeToken, tree->token);
-	TEST_ASSERT_EQUAL_PTR (iden->type, tree->type);
-	TEST_ASSERT_EQUAL_PTR(iden->name, tree->name);  
-  }
-  
-  void test_add_both_addTwoToken_addToken(void){
-    IdentifierToken *iden;
-    IntegerToken *intTk;
-    OperatorToken *ope;
-    
-    OperatorToken *opeToken = malloc(sizeof(OperatorToken )+(sizeof(Token *)) * 2);
-    IdentifierToken *iden = malloc(sizeof(IdentifierToken )+(sizeof(Token *)));
-    IntegerToken *int1 = malloc(sizeof(IntegerToken));
-    createIdentifierToken_ExpectAndReturn("int", iden);
-    
-  }
-  
-  
+	idenTk = (IdentifierToken *)createIdentifierToken("int", 0, 3);
+	opeTk = (OperatorToken *)createOperatorToken("[", 0, 1);
+	leftTk = (IdentifierToken *)createIdentifierToken("x", 0, 1);
+	rightTk = (IntegerToken *)createIntegerToken("2", 0, 1);
+	idenTk->token = (Token *)opeTk;
+	opeTk->token[0] = (Token *)leftTk;
+	opeTk->token[1] = (Token *)rightTk;
+	leftTk->token = NULL;
+	
+	root = (IdentifierToken *)tree("int", "[", "x", "2"); 
+
+	TEST_ASSERT_EQUAL_STRING(idenTk->name, root->name);
+	TEST_ASSERT_EQUAL_STRING(root->name, "int" );
+	TEST_ASSERT_EQUAL_STRING(opeTk->symbol, "[");
+	TEST_ASSERT_EQUAL_STRING(leftTk->name, "x");
+	TEST_ASSERT_EQUAL(rightTk->value, 2);
+	TEST_ASSERT_EQUAL_PTR(idenTk->token,opeTk ); 
+	TEST_ASSERT_EQUAL_PTR(opeTk->token[0], leftTk);
+	TEST_ASSERT_EQUAL_PTR(opeTk->token[1], rightTk);
+	
+}
+
+/* 
+*				  		int 
+*					 		 |
+*					 		[
+*					 	/  \
+*			 			[	  2
+*					/ \
+*				*   4
+*				|
+*			app
+*	
+*		int *app[4][2];
+* 
+*/
+
+

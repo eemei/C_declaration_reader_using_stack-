@@ -27,40 +27,40 @@ typedef enum {
 
 typedef struct {
 	TokenType type;
-  uint32_t startColumn;
-  uint32_t length;
+	uint32_t startColumn;
+	uint32_t length;
 	char *str;
 } Token;
 
 typedef struct {
 	TokenType type;
-  uint32_t startColumn;
-  uint32_t length;
+	uint32_t startColumn;
+	uint32_t length;
 	int value;
 	char *str;
 } IntegerToken;
 
 typedef struct {
 	TokenType type;
-  uint32_t startColumn;
-  uint32_t length;
+	uint32_t startColumn;
+	uint32_t length;
 	double value;
 	char *str;
 } FloatToken;
 
 typedef struct {
 	TokenType type;
-  uint32_t startColumn;
-  uint32_t length;
+	uint32_t startColumn;
+	uint32_t length;
 	char *name;
 	char *str;
-  Token *token; //  attract 
+	Token *token; //  attract 
 } IdentifierToken, StringToken;
 
 typedef struct {
 	TokenType type;
-  uint32_t startColumn;
-  uint32_t length;
+	uint32_t startColumn;
+	uint32_t length;
 	char *str;
 	char *symbol;
 	Arity arity;
@@ -68,12 +68,13 @@ typedef struct {
 } OperatorToken;
 
 
-// Token *createOperatorToken(char *symbol);
-// Token *createIntegerToken(int value);
-// Token *createIdentifierToken (char *name);
-OperatorToken *createOperatorToken(char *symbol);
-IntegerToken *createIntegerToken(int value);
-IdentifierToken *createIdentifierToken (char *name);
+
+char *createSubString(char *str, int start , int len);
+Token *createOperatorToken(char *str, int start, int length);
+Token *createFloatToken(char *str, int start, int length);
+Token *createIntegerToken(char *str,int start,int length);
+Token *createIdentifierToken(char *str,int start, int length);
+Token *createStringToken(char *str,int start, int length);
+Token *createEndStrToken(char *symbol);
 
 #endif // Token_H
-

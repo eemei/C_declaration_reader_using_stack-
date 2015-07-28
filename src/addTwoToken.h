@@ -2,9 +2,6 @@
 #define addTwoToken_H
 #include "Token.h"
 
-
-
-Token *addTwoToken( char *name, char *operatorSymbol, int rightValue);
-Token *addToken (char *name, char *symbol);
+Token *tree(char *iden, char *symbol, char *leftTkIden, char *rightTkInt);
 
 #endif // addTwoToken_H

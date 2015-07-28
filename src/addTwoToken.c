@@ -4,127 +4,78 @@
 #include <malloc.h>
 
 
-
-/* Add2Tokens generated a "small tree" connecting with "TWO TOKEN"  
-*					operatorToken					example
-*				_________________						   [
-*				|symbol "["		|						    / \
-*				-----------------					   x  2
-*				|Token[0]		|
-*				-----------------
-*				|Token[1]		|
-*				_________________
-*			/					        \
-*	idenTOKEN(leftSide)	   integerTOKEN(rightSide)
-*	|	type	 |		        	|	type	|
-*	--------------			-------------
-*	|	name	|			        | value		|
-*	_____________			    _____________
-*/
-
-Token *addTwoToken(char *name, char *operatorSymbol, int rightValue){
-
-	OperatorToken *opeToken = malloc(sizeof(OperatorToken )+(sizeof(Token *)) * 2);
-	IdentifierToken *leftToken = malloc (sizeof(IdentifierToken));
-	IntegerToken* rightToken = malloc(sizeof(IntegerToken));
-
-	leftToken = createIdentifierToken(name); 
-	rightToken = createIntegerToken (rightValue);
-	opeToken = createOperatorToken(operatorSymbol);
-  
-	opeToken -> token[0] = (Token *)leftToken;
-	opeToken -> token[1] = (Token *)rightToken;
-	
- 
-  return (Token *)opeToken;
-}
-
-
-/* AddToken "attract the identifierToken to the operatorToken "
+/*
+*				int 
+*				|
+*				[
+*			/		\
+*			x		2
+*			|
+*		NULL
 *
-*       identifierToken         	example
-*     |     name    |               int 
-*     _______________                |
-*     |   token     |                [
-*     _______________
-*           |
-*					operatorToken				
 */
 
-Token *addToken (char *name, char *symbol){
-  IdentifierToken *iden = malloc(sizeof(IdentifierToken )+(sizeof(Token *)));
-  OperatorToken *opeToken = malloc(sizeof(OperatorToken )+(sizeof(Token *)) * 2);
-  
-  opeToken = createOperatorToken(symbol);
-  iden = createIdentifierToken (name);
-  
-  iden->token = (Token *)opeToken;
-  return (Token *)iden;
+Token *tree(char *iden, char *symbol, char *leftTkIden, char *rightTkInt) {
+	
+	int start = 0;
+	int length0 = 3;
+	int length1 = 1;
+	int length2 = 1;
+	int length3 = 1;
+
+	
+	OperatorToken *opeTk;
+	IdentifierToken *idenTk, *leftTk;
+	IntegerToken *rightTk;
+	
+	idenTk = (IdentifierToken *)createIdentifierToken(iden, start, length0);
+	opeTk = (OperatorToken *)createOperatorToken(symbol, start, length1);
+	leftTk = (IdentifierToken *)createIdentifierToken(leftTkIden, start, length2);
+	rightTk = (IntegerToken *)createIntegerToken(rightTkInt, start, length3);
+	idenTk->token = (Token *)opeTk;
+	opeTk->token[0] = (Token *)leftTk;
+	opeTk->token[1] = (Token *)rightTk;
+	leftTk->token = NULL;
+
+	return (Token *)idenTk;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* Add2Tokens generated a "small tree" connecting with "TWO TOKEN"  
-*					operatorToken					example  char foo[3][2]
-*				_________________						   [
-*				|symbol "["		|						    / \
-*				-----------------					   [  2
-*				|Token[0]		|               /\
-*				-----------------        foo  3
-*				|Token[1]		|
-*				_________________
-*			/					\
-*	operTOKEN(leftSide)	   integerTOKEN(rightSide)
-*	|	symbol |			|	type	|
-*	--------------			-------------
-*	|	token[0/1]	|			| value		|
-*	_____________			_____________
+/* 
+*				  		int 
+*					 		 |
+*					 		[
+*					 	/  \
+*			 			[	  2
+*					/ \
+*				*   4
+*				|
+*			app
+*	
+*		int *app[4][2];
+* 
 */
 
-// Token *addTwoTokenOpe(char *TkOpe, char *operatorSymbol, int rightValue){
-  // //char *symbol= NULL;
-	// OperatorToken *opeToken = malloc(sizeof(OperatorToken )+(sizeof(Token *)) * 2);
-  	// //IntegerToken* leftVal = malloc(sizeof(IntegerToken ));
-	// IdentifierToken *leftToken = malloc (sizeof(IdentifierToken));
-	// IntegerToken* rightToken = malloc(sizeof(IntegerToken));
-	// //leftVal = createIntegerToken (leftValue);
-	// leftToken = createIdentifierToken(name); 
-	// rightToken = createIntegerToken (rightValue);
-	// opeToken = createOperatorToken(operatorSymbol);
-	// opeToken -> token[0] = (Token *)leftToken;
-	// opeToken -> token[1] = (Token *)rightToken;
+Token *secondtree(char *iden, char *symbol, char *leftTkIden, char *rightTkInt) {
+	
+	int start = 0;
+	int length0 = 3;
+	int length1 = 1;
+	int length2 = 1;
+	int length3 = 1;
 
-  // return (Token *)opeToken;
-// }
+	
+	OperatorToken *opeTk;
+	IdentifierToken *idenTk, *leftTk;
+	IntegerToken *rightTk;
+	
+	idenTk = (IdentifierToken *)createIdentifierToken(iden, start, length0);
+	opeTk = (OperatorToken *)createOperatorToken(symbol, start, length1);
+	leftTk = (IdentifierToken *)createIdentifierToken(leftTkIden, start, length2);
+	rightTk = (IntegerToken *)createIntegerToken(rightTkInt, start, length3);
+	idenTk->token = (Token *)opeTk;
+	opeTk->token[0] = (Token *)leftTk;
+	opeTk->token[1] = (Token *)rightTk;
+	leftTk->token = NULL;
 
-
-
+	return (Token *)idenTk;
+}

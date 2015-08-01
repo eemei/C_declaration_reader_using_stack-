@@ -3,5 +3,6 @@
 #include "Token.h"
 
 Token *tree(char *iden, char *symbol, char *leftTkIden, char *rightTkInt);
-
-#endif // addTwoToken_H
+Token *errorTree(char *iden, char *symbol, char *leftTkIden);
+Token *secondTree(char *iden, char *firsymbol, char *secsymbol, char *secrightTk, char *secleftTk);
+#endif // addTwoToken_H;

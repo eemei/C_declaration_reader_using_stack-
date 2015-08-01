@@ -23,7 +23,7 @@ StackElement *elementDestory(StackElement *elem) {
   free(elem);
 }
 
-StackElement *stackRemove(Stack *stack) {
+StackElement *pop(Stack *stack) {
 	StackElement *tempPtr, *popElem = malloc (sizeof(StackElement));
 
   if (stack->head == NULL) {
@@ -31,7 +31,7 @@ StackElement *stackRemove(Stack *stack) {
    return NULL;
   }
   else {
-  printf ("[head value %d]\n", stack->head);
+  printf ("[ head address: %d ]\n", stack->head);
 	tempPtr = stack->head;
 	popElem->item = tempPtr->item;
 	popElem->next = NULL;
@@ -39,17 +39,14 @@ StackElement *stackRemove(Stack *stack) {
   stack->head = stack->head->next;
   free (tempPtr);
   stack->length -=1;
-	//printf ("[pop value %s]\n", popValue);
-	printf("stack length:%d\n", stack->length);
-	printf("remove111 :%s\n",popElem->item);
+	printf("< stack length: %d\n >", stack->length);
+	printf("< remove: %s\n >",popElem->item);
 
    return popElem; 
   }
 }
 
-// /* void stackAdd (Stack *stack, StackElement *elem /*, void *item, void (*cpy)(void *), int (*match)(void *first, TokenType Token), char *(*dpy)(void *)*/){ */
-   //elem = stack ->head;
-void stackAdd (Stack *stack, void *item){
+void push(Stack *stack, void *item){
 	StackElement *elem = stackelementCreate(item);
   if (elem == 0){
     puts ("full storage\n");
@@ -58,15 +55,32 @@ void stackAdd (Stack *stack, void *item){
   if (stack->head == NULL){
     stack->tail = elem;
     stack->head = elem;
-    printf ("[@%s] -> ", (char *)elem->item);
+    printf ("[@  %s ] -> \n", (char *)elem->item);
 		stack->length=1;
   }
   
   else {
 		elem->next = stack->head;
 		stack->head = elem;
-		printf ("[2@%s] -> ", (char *)elem->item);
-   // printf ("[token_type:%d]\n", Tk->type);
+		printf ("[2@  %s ] -> \n", (char *)elem->item);
 	  stack->length +=1;
   }
+}
+/* 	1) push the token until the left hand side meet the NULL
+*		2) pop the token and read 
+**/
+void moveInsideTree(Token *token) {
+	Stack *stack = stackCreate ();
+	if(token != NULL) {
+		if(token->type == TOKEN_IDENTIFIER_TYPE) {
+			moveInsideTree(((IdentifierToken *)token)->token);
+			printf("token name = %s \n", ((IdentifierToken *)token)->name);
+			push(stack, ((IdentifierToken *)token)->name);
+		}
+		else if(token->type == TOKEN_OPERATOR_TYPE) {
+			moveInsideTree(((OperatorToken *)token)->token[0]);
+			printf("token symbol = %s \n", ((OperatorToken *)token)->symbol);
+			push(stack, ((OperatorToken *)token)->symbol);
+		}		
+	}
 }

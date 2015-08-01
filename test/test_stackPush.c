@@ -5,6 +5,7 @@
 #include <string.h>
 #include <malloc.h>
 #include <stdio.h>
+
 void setUp(void) {}
 void tearDown(void) {}
 
@@ -16,7 +17,7 @@ void test_stack_create(void) {
 }
 
 
-void test_stackelement_Create(void) {
+void test_stackelement_Create_an_integer(void) {
 	int value = 10;
 	StackElement *elem = malloc(sizeof(StackElement));
 	elem = stackelementCreate(&value);
@@ -25,7 +26,7 @@ void test_stackelement_Create(void) {
 	TEST_ASSERT_EQUAL(10, *(int *)elem->item);
 }
 
-void test_stackelement_CreateStr(void) {
+void test_stackelement_Create_a_pointer(void) {
 	char *str = "Hello, I am fine.";
 	StackElement *elem = malloc(sizeof(StackElement));
 	elem = stackelementCreate(str);
@@ -45,42 +46,22 @@ void test_stackelement_CreateStr(void) {
 *
 */
 
+/**		this function to test the error code  
+*					 @# -->operatorTokenType
+*					/	\
+*				*		NULL
+*			/  \
+*	 	x   NULL
+*		|
+*		NULL
+*/
+
 void test_pushfunction_and_removefunction_with_implement_a_tree(void) {
-	Stack *stack = stackCreate ();
-  StackElement *stackelem = malloc (sizeof (StackElement));
-	OperatorToken *opeTk;
-	IdentifierToken *idenTk, *leftTk;
-	IntegerToken *rightTk;
-	//Token *tree(char *iden, char *symbol, char *leftTkIden, char *rightTkInt);
-	idenTk = (IdentifierToken *)createIdentifierToken("int", 0, 3);
-	opeTk = (OperatorToken *)createOperatorToken("[", 0, 1);
-	leftTk = (IdentifierToken *)createIdentifierToken("x", 0, 1);
-	rightTk = (IntegerToken *)createIntegerToken("2", 0, 1);
-	stackAdd (stack, idenTk->name);
-	stackAdd (stack, opeTk);
-	stackAdd (stack, leftTk->name);
-	StackElement *popElem = malloc(sizeof (StackElement));
-	popElem = stackRemove (stack);
-	popElem = stackRemove (stack);
-	popElem = stackRemove (stack);
-	
+	Token *token;
+	//token = tree("int", "[", "x", "2"); 
+	//token = errorTree("@#", "*", "x");
+	token = secondTree("int", "*", "[", "2", "app"); 
+	moveInsideTree(token);
+
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

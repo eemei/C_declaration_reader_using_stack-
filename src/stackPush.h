@@ -8,7 +8,7 @@ typedef struct StackElement_t StackElement;
 struct StackElement_t {
   StackElement *next;
   int type;
-  void *item; 	/*let pointer point to do anything but u don't know wat type*/
+  void *item; 	
 };
 
 typedef struct {
@@ -20,7 +20,7 @@ typedef struct {
 Stack *stackCreate();
 StackElement *stackelementCreate(void *item);
 StackElement *elementDestory(StackElement *elem);
-void stackAdd (Stack *stack, void *item);
-StackElement *stackRemove(Stack *stack);
-
+void push(Stack *stack, void *item);
+StackElement *pop(Stack *stack);
+void moveInsideTree(Token *token);
 #endif // stackPush_H

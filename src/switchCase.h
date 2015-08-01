@@ -4,5 +4,4 @@
 #include <string.h>
 
 void declaration(Token *token);
-
 #endif // switchCase_H

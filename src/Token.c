@@ -54,16 +54,16 @@
 				TEST_ASSERT_EQUAL_STRING(ExStr,Token->str);									  		\
 				}
         
-#define  TEST_ASSERT_IDENTIFIER_TOKEN(ExName,ExStartC,ExLen,ExStr,Token)   \
+#define  TEST_ASSERT_IDENTIFIER_TOKEN(ExName,ExStartC,ExLen,ExStr,Token)  \
         {                                                                 \
-				TEST_ASSERT_EQUAL(TOKEN_IDENTIFIER_TYPE,Token->type);				  			\
+				TEST_ASSERT_EQUAL(TOKEN_IDENTIFIER_TYPE,Token->type);				  		\
 				TEST_ASSERT_EQUAL_STRING(ExName,Token->name);				    		    	\
 				TEST_ASSERT_EQUAL(ExStartC,Token->startColumn);			  						\
 				TEST_ASSERT_EQUAL(ExLen,Token->length);									  				\
 				TEST_ASSERT_EQUAL_STRING(ExStr,Token->str);									  		\
         }
           
-#define  TEST_ASSERT_STRING_TOKEN(ExName,ExStartC,ExLen,ExStr,Token)       \
+#define  TEST_ASSERT_STRING_TOKEN(ExName,ExStartC,ExLen,ExStr,Token)      \
         {                                                                 \
 				TEST_ASSERT_EQUAL(TOKEN_STRING_TYPE,Token->type);				  		   	\
 				TEST_ASSERT_EQUAL_STRING(ExName,Token->name);				    		    	\
@@ -72,7 +72,7 @@
 				TEST_ASSERT_EQUAL_STRING(ExStr,Token->str);									  		\
         }
  
-#define TEST_ASSERT_FLOAT_TOKEN(ExValue,ExStartC,ExLen,ExStr,Token)        \
+#define TEST_ASSERT_FLOAT_TOKEN(ExValue,ExStartC,ExLen,ExStr,Token)       \
 				{																																	\
 				TEST_ASSERT_EQUAL(TOKEN_FLOAT_TYPE,Token->type);				  			  \
 				TEST_ASSERT_EQUAL(ExValue,Token->value);									  			\
@@ -88,12 +88,12 @@ char *createSubString(char *str, int start , int len) {
 	int i = 0;
 	int j = start;
 	
-	while ( j < (len+start) ){
-	newStr[i] = str[j];
-  printf("str[%d] = %c ,newStr[%d] = %c\n",j,str[j],i,newStr[i]);
-  i++;
-	j++;
-  }
+	while (j < (len+start)) {
+		newStr[i] = str[j];
+	// printf("str[%d] = %c ,newStr[%d] = %c\n",j,str[j],i,newStr[i]);
+		i++;
+		j++;
+	}
   newStr[i] = 0;
 	return newStr;
 }

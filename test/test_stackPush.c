@@ -1,7 +1,8 @@
 #include "unity.h"
 #include "stackPush.h"
 #include "Token.h"
-#include "addTwoToken.h"
+#include "tree.h"
+#include "stackPush.h"
 #include <string.h>
 #include <malloc.h>
 #include <stdio.h>
@@ -56,12 +57,10 @@ void test_stackelement_Create_a_pointer(void) {
 *		NULL
 */
 
-void test_pushfunction_and_removefunction_with_implement_a_tree(void) {
+void test_display_tree(void) {
+	Stack *stack = stackCreate ();
 	Token *token;
-	//token = tree("int", "[", "x", "2"); 
-	//token = errorTree("@#", "*", "x");
-	token = secondTree("int", "*", "[", "2", "app"); 
-	moveInsideTree(token);
-
-
+	token = secondTree("int", "*", "[", "2", "app");
+	displayToken(token);
+//	declaration(token);
 }

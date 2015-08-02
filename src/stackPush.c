@@ -1,5 +1,6 @@
 #include "stackPush.h"
-#include "addTwoToken.h"
+#include "tree.h"
+#include "switchCase.h"
 #include "Token.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -69,16 +70,17 @@ void push(Stack *stack, void *item){
 /* 	1) push the token until the left hand side meet the NULL
 *		2) pop the token and read 
 **/
-void moveInsideTree(Token *token) {
+void displayToken(Token *token) {
 	Stack *stack = stackCreate ();
 	if(token != NULL) {
 		if(token->type == TOKEN_IDENTIFIER_TYPE) {
-			moveInsideTree(((IdentifierToken *)token)->token);
+			displayToken(((IdentifierToken *)token)->token);
 			printf("token name = %s \n", ((IdentifierToken *)token)->name);
 			push(stack, ((IdentifierToken *)token)->name);
+			//declaration(token);
 		}
 		else if(token->type == TOKEN_OPERATOR_TYPE) {
-			moveInsideTree(((OperatorToken *)token)->token[0]);
+			displayToken(((OperatorToken *)token)->token[0]);
 			printf("token symbol = %s \n", ((OperatorToken *)token)->symbol);
 			push(stack, ((OperatorToken *)token)->symbol);
 		}		

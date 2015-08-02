@@ -1,5 +1,4 @@
 #include "switchCase.h"
-#include "addTwoToken.h"
 #include <string.h>
 #include <stdio.h>
 #include "Token.h"
@@ -13,33 +12,62 @@
 *			print out :
 *								fool is a function returning int arg void. 
 * */
-
-void declaration(Token *token){	
-	if (token == NULL) {
-		printf("token is empty\n");
-	}
-	switch (token->type) {
-		case TOKEN_IDENTIFIER_TYPE:	
-			printf("%s is ", ((IdentifierToken *)token)->name);
-			break;
-		case TOKEN_INTEGER_TYPE: 
-			printf("%d of ", ((IntegerToken *)token)->value);
-			break;
-		case TOKEN_OPERATOR_TYPE:	
-			if (!strcmp(((OperatorToken *)token)->symbol, "*")) {
-				printf("pointer to ");
+void declaration(Token *token) {
+	if (token != NULL) {
+		if (token->type == TOKEN_IDENTIFIER_TYPE) {
+			declaration(((IdentifierToken *)token)->token);
+			if (!strcmp(((IdentifierToken *)token)->name, "double")) {
+				printf(" %s.\n", ((IdentifierToken *)token)->name);
 			}
-			else if (!strcmp(((OperatorToken *)token)->symbol, "[")) {
-				printf("array ");
+			else if (!strcmp(((IdentifierToken *)token)->name, "float")) {
+				printf(" %s.\n", ((IdentifierToken *)token)->name);
 			}
-			else if (!strcmp(((OperatorToken *)token)->symbol, "(")) {
-				printf("a function returning ");
+			else if (!strcmp(((IdentifierToken *)token)->name, "char")) {
+				printf(" %s.\n", ((IdentifierToken *)token)->name);
 			}
-			/* default: */
+			else if (!strcmp(((IdentifierToken *)token)->name, "int")) {
+				printf(" %s.\n", ((IdentifierToken *)token)->name);
+			}
+			else if (!strcmp(((IdentifierToken *)token)->name, "void")) {
+				printf(" %s.\n", ((IdentifierToken *)token)->name);
+			}
+			else if (!strcmp(((IdentifierToken *)token)->name, "unsigned int")) {
+				printf(" %s.\n", ((IdentifierToken *)token)->name);
+			}
+			else if (!strcmp(((IdentifierToken *)token)->name, "unsigned char")) {
+				printf(" %s.\n", ((IdentifierToken *)token)->name);
+			}
+			else if (!strcmp(((IdentifierToken *)token)->name, "short")) {
+				printf(" %s.\n", ((IdentifierToken *)token)->name);
+			}
+			else if (!strcmp(((IdentifierToken *)token)->name, "unsigned short")) {
+				printf(" %s.\n", ((IdentifierToken *)token)->name);
+			}
+			else if (!strcmp(((IdentifierToken *)token)->name, "long")) {
+				printf(" %s.\n", ((IdentifierToken *)token)->name);
+			}
+			else if (!strcmp(((IdentifierToken *)token)->name, "unsigned long")) {
+				printf(" %s.\n", ((IdentifierToken *)token)->name);
+			}
+			else if (!strcmp(((IdentifierToken *)token)->name, "long double")) {
+				printf(" %s.\n", ((IdentifierToken *)token)->name);
+			}
 			else {
-			printf("Error: unknown operator symbol!\n");
+				printf(" %s is", ((IdentifierToken *)token)->name);
 			}
-		break;
-		default : printf("Error: unknown type token!\n");
+		}
+
+		else if (token->type == TOKEN_OPERATOR_TYPE) {
+			declaration(((OperatorToken *)token)->token[0]);
+				if (!strcmp(((OperatorToken *)token)->symbol, "*")) {
+					printf(" pointer to");
+				}
+				else if (!strcmp(((OperatorToken *)token)->symbol, "[")) {
+					printf(" array %d of", ((IntegerToken *)(((OperatorToken *)token)->token[1]))->value);
+				}
+				else if (!strcmp(((OperatorToken *)token)->symbol, "(")) {
+					printf(" function taking %s returning", ((IdentifierToken *)(((OperatorToken *)token)->token[1]))->name);
+				}
+		}
 	}
 }

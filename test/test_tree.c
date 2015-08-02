@@ -8,7 +8,7 @@ void setUp(void) {}
 void tearDown(void) {}
 
 /*  
-*						operatorToken					example
+*						operatorToken					examples
 *					_________________	  						 [
 *				|  symbol "["	   |								/ \
 *				-----------------			    		   x  2

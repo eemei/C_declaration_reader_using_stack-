@@ -35,7 +35,6 @@ void test_stackelement_Create_a_pointer(void) {
 	TEST_ASSERT_NOT_NULL(elem->item);
 	TEST_ASSERT_EQUAL_STRING("Hello, I am fine.", (char *)(elem->item));
 }
-
 /*
 *				int 
 *				|
@@ -46,21 +45,15 @@ void test_stackelement_Create_a_pointer(void) {
 *		NULL
 *
 */
-
-/**		this function to test the error code  
-*					 @# -->operatorTokenType
-*					/	\
-*				*		NULL
-*			/  \
-*	 	x   NULL
-*		|
-*		NULL
-*/
-
 void test_display_tree(void) {
 	Stack *stack = stackCreate ();
 	Token *token;
 	token = secondTree("int", "*", "[", "2", "app");
-	displayToken(token);
-//	declaration(token);
+	PushTree(token, stack);
+
+  TEST_ASSERT_EQUAL_STRING("int", ((IdentifierToken *)token)->name);
+  TEST_ASSERT_EQUAL_STRING("*", ((OperatorToken *)((IdentifierToken*)token)->token)->symbol);
+  TEST_ASSERT_EQUAL_STRING("[", ((OperatorToken *)((OperatorToken *)((IdentifierToken*)token)->token)->token[0])->symbol);
+  //TEST_ASSERT_EQUAL(2, ((IntegerToken *)((OperatorToken *)((IdentifierToken*)token)->token)->token[1])->value);
+  TEST_ASSERT_EQUAL_STRING("app", ((IdentifierToken *)((OperatorToken *)((OperatorToken *)((IdentifierToken*)token)->token)->token[0])->token[0])->name);
 }

@@ -70,19 +70,18 @@ void push(Stack *stack, void *item){
 /* 	1) push the token until the left hand side meet the NULL
 *		2) pop the token and read 
 **/
-void displayToken(Token *token) {
-	Stack *stack = stackCreate ();
+void PushTree(Token *token, Stack *stack) {
 	if(token != NULL) {
 		if(token->type == TOKEN_IDENTIFIER_TYPE) {
-			displayToken(((IdentifierToken *)token)->token);
 			printf("token name = %s \n", ((IdentifierToken *)token)->name);
 			push(stack, ((IdentifierToken *)token)->name);
-			//declaration(token);
+			PushTree(((IdentifierToken *)token)->token, stack);
 		}
 		else if(token->type == TOKEN_OPERATOR_TYPE) {
-			displayToken(((OperatorToken *)token)->token[0]);
 			printf("token symbol = %s \n", ((OperatorToken *)token)->symbol);
-			push(stack, ((OperatorToken *)token)->symbol);
+			push(stack, ((OperatorToken *)token));
+      //pop(stack);
+			PushTree(((OperatorToken *)token)->token[0], stack);
 		}		
 	}
 }

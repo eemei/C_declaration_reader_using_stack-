@@ -314,7 +314,54 @@ void test_create_long_is_function_takig_nothing_returning_long(void) {
 	TEST_ASSERT_EQUAL_PTR(opeTk->token[1], rightTk);
 	TEST_ASSERT_EQUAL(leftTk->token, NULL);
 }
+/*	 			int 
+*					|
+*					[
+*				/  \
+*	 		[		 2
+*		/	 \
+*	dog		4
+*
+*		int dog[4][2];
+*			dog is array 4 of array 2 of int.
+*/
+test_create_dog_is_array_4_of_array_2_of_int(void) {
+  OperatorToken *firstopeTk, *secondopeTk;
+  IntegerToken *firstIntTk, *secondIntTk;
+  IdentifierToken *idenTk, *leftTk, *root;
+  
+  idenTk = (IdentifierToken *)createIdentifierToken("int", 0, 3);
+  firstopeTk = (OperatorToken *)createOperatorToken("[", 0, 1);
+  secondopeTk = (OperatorToken *)createOperatorToken("[", 0, 1);
+  firstIntTk = (IntegerToken *)createIntegerToken("2", 0, 1);
+  secondIntTk = (IntegerToken *)createIntegerToken("4", 0, 1);
+  leftTk = (IdentifierToken *)createIdentifierToken("dog", 0, 3);
+  idenTk->token = (Token *)firstopeTk;
+	firstopeTk->token[0] = (Token *)secondopeTk;
+	firstopeTk->token[1] = (Token *)firstIntTk;
+  secondopeTk->token[0] = (Token *)leftTk;
+	secondopeTk->token[1] = (Token *)secondIntTk;
+	leftTk->token = NULL;
+  
+  root = (IdentifierToken *)dogarrayarray("[", "[", "int", "dog", "2", "4");
+  
+  TEST_ASSERT_EQUAL_STRING(idenTk->name, root->name);
+	TEST_ASSERT_EQUAL_STRING(root->name, "int");
+	TEST_ASSERT_EQUAL_STRING(firstopeTk->symbol, "[");
+	TEST_ASSERT_EQUAL_STRING(secondopeTk->symbol, "[");
+  TEST_ASSERT_EQUAL_STRING(leftTk->name, "dog");
+	TEST_ASSERT_EQUAL(firstIntTk->value, 2);
+  TEST_ASSERT_EQUAL(secondIntTk->value, 4);
+	TEST_ASSERT_EQUAL_PTR(idenTk->token, firstopeTk); 
+	TEST_ASSERT_EQUAL_PTR(firstopeTk->token[0], secondopeTk);
+	TEST_ASSERT_EQUAL_PTR(firstopeTk->token[1], firstIntTk);
+	TEST_ASSERT_EQUAL_PTR(secondopeTk->token[0], leftTk);
+	TEST_ASSERT_EQUAL_PTR(secondopeTk->token[1], secondIntTk);
+	TEST_ASSERT_EQUAL(leftTk->token, NULL);
+  
+  }
 
+  
 // /* 
 // *									float
 // *										|

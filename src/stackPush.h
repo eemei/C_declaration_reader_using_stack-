@@ -23,5 +23,5 @@ StackElement *stackelementCreate(void *item);
 StackElement *elementDestory(StackElement *elem);
 void push(Stack *stack, void *item);
 StackElement *pop(Stack *stack);
-void displayToken(Token *token);
+void PushTree(Token *token, Stack *stack);
 #endif // stackPush_H

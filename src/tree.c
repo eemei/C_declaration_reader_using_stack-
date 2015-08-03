@@ -239,7 +239,28 @@ Token *fooisFuncreturnNoth(char *iden, char *symbol, char *leftTkIden, char *rig
 *		int dog[4][2];
 *			dog is array 4 of array 2 of int.
 */
-Token *dogarrayarray(char *firstsymbol, char *secondsymbol, char *iden, char *leftTkIden, char *firstInt, char second )
+/*                            [                       [          int          dog                 2             4 */
+Token *dogarrayarray(char *firstsymbol, char *secondsymbol, char *iden, char *leftTkIden, char *firstInt, char *second) {
+  int start = 0;
+  OperatorToken *firstopeTk, *secondopeTk;
+  IntegerToken *firstIntTk, *secondIntTk;
+  IdentifierToken *idenTk, *leftTk;
+  
+  idenTk = (IdentifierToken *)createIdentifierToken(iden, start, 3);
+  firstopeTk = (OperatorToken *)createOperatorToken(firstsymbol, start, 1);
+  secondopeTk = (OperatorToken *)createOperatorToken(secondsymbol, start, 1);
+  firstIntTk = (IntegerToken *)createIntegerToken(firstInt, start, 1);
+  secondIntTk = (IntegerToken *)createIntegerToken(second, start, 1);
+  leftTk = (IdentifierToken *)createIdentifierToken(leftTkIden, start, 3);
+  idenTk->token = (Token *)firstopeTk;
+	firstopeTk->token[0] = (Token *)secondopeTk;
+	firstopeTk->token[1] = (Token *)firstIntTk;
+  secondopeTk->token[0] = (Token *)leftTk;
+	secondopeTk->token[1] = (Token *)secondIntTk;
+	leftTk->token = NULL;
+  
+  return (Token *)idenTk;
+}
 
 // *									float
 // *										|

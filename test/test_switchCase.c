@@ -43,3 +43,10 @@ void test_fooisFuncreturnNoth_declaration(void){
 	declaration(root);
 }
 
+void test_dogisarrayarray_declaration(void){
+	Token *root;
+  root = dogarrayarray("[", "[", "int", "dog", "2", "4");
+	declaration(root);
+}
+
+

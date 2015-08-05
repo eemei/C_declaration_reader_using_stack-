@@ -2,7 +2,6 @@
 #define stackPush_H
 #include "Token.h"
 #include "tree.h"
-#include "switchCase.h"
 #include <string.h>
 
 typedef struct StackElement_t StackElement;
@@ -24,4 +23,5 @@ StackElement *elementDestory(StackElement *elem);
 void push(Stack *stack, void *item);
 StackElement *pop(Stack *stack);
 void PushTree(Token *token, Stack *stack);
+void removeToken(Token *token, Stack *stack);
 #endif // stackPush_H

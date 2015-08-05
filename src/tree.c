@@ -97,7 +97,6 @@ Token *errorSymbolTree(char *iden, char *symbol, char *leftTkIden) {
 *			
 *		int *app[2];
 *			app is array 2 of pointer to int. 
-* 
 */
 /* 											int					*								[										2							app */
 Token *secondTree(char *iden, char *firsymbol, char *secsymbol, char *secrightTk, char *secleftTk) {
@@ -262,49 +261,49 @@ Token *dogarrayarray(char *firstsymbol, char *secondsymbol, char *iden, char *le
   return (Token *)idenTk;
 }
 
-// *									float
-// *										|
-// *										*
-// *									/  \
-// *								[  NULL
-// *							/  \	
-// *						*		 4
-// *					/  \
-// *				[			NULL
-// *			/  \
-// *			y   2
-// *			|
-// *			NULL
-// *
-// *		float *(*y[2])[4];
-// *			y is array 2 of pointer to array 4 of pointer to float.	
+*									float
+*										|
+*										*
+*									/  \
+*								[  NULL
+*							/  \	
+*						*		 4
+*					/  \
+*				[			NULL
+*			/  \
+*			y   2
+*			|
+*			NULL
+*
+*		float *(*y[2])[4];
+*			y is array 2 of pointer to array 4 of pointer to float.	
 
-			// float		*		[		*		4		[		2		y
-// Token *yArrayPointer(char *iden, char *firope, char *secope, char *thirdope, \
-											// char *intTk, char *forope, char *secintTk, char *leftTkIden) {
-	// int start = 0;
-	// IdentifierToken *idenTk, *leftTk;
-	// OperatorToken *firleftTk, *secleftTk, *thileftTk, *forleftTk;
-	// IntegerToken *firrightTk, *secrightTk;
+		//	float		*		[		*		4		[		2		y
+Token *yArrayPointer(char *iden, char *firope, char *secope, char *thirdope, \
+											char *intTk, char *forope, char *secintTk, char *leftTkIden) {
+	int start = 0;
+	IdentifierToken *idenTk, *leftTk;
+	OperatorToken *firleftTk, *secleftTk, *thileftTk, *forleftTk;
+	IntegerToken *firrightTk, *secrightTk;
 	
-	// idenTk = (IdentifierToken *)createIdentifierToken(iden, start, 5);
-	// firleftTk = (OperatorToken *)createOperatorToken(firope, start, 1);
-	// secleftTk = (OperatorToken *)createOperatorToken(secope, start, 1);
-	// thileftTk = (OperatorToken *)createOperatorToken(thirdope, start, 1);
-	// forleftTk = (OperatorToken *)createOperatorToken(forope, start, 1);
-	// leftTk = (IdentifierToken *)createIdentifierToken(leftTkIden, start, 1);
-	// firrightTk = (IntegerToken *)createIntegerToken(intTk, start, 1);
-	// secrightTk = (IntegerToken *)createIntegerToken(secintTk, start, 1);
-	// idenTk->token = (Token *)firleftTk;
-	// firleftTk->token[0] = (Token *)secleftTk;
-	// firleftTk->token[1] = NULL;
-	// secleftTk->token[0] = (Token *)thileftTk;
-	// secleftTk->token[1] = (Token *)firrightTk;
-	// thileftTk->token[0] = (Token *)forleftTk;
-	// thileftTk->token[1] = NULL;
-	// forleftTk->token[0] = (Token *)idenTk;
-	// forleftTk->token[1] = (Token *)secrightTk;
-	// idenTk->token = NULL;
+	idenTk = (IdentifierToken *)createIdentifierToken(iden, start, 5);
+	firleftTk = (OperatorToken *)createOperatorToken(firope, start, 1);
+	secleftTk = (OperatorToken *)createOperatorToken(secope, start, 1);
+	thileftTk = (OperatorToken *)createOperatorToken(thirdope, start, 1);
+	forleftTk = (OperatorToken *)createOperatorToken(forope, start, 1);
+	leftTk = (IdentifierToken *)createIdentifierToken(leftTkIden, start, 1);
+	firrightTk = (IntegerToken *)createIntegerToken(intTk, start, 1);
+	secrightTk = (IntegerToken *)createIntegerToken(secintTk, start, 1);
+	idenTk->token = (Token *)firleftTk;
+	firleftTk->token[0] = (Token *)secleftTk;
+	firleftTk->token[1] = NULL;
+	secleftTk->token[0] = (Token *)thileftTk;
+	secleftTk->token[1] = (Token *)firrightTk;
+	thileftTk->token[0] = (Token *)forleftTk;
+	thileftTk->token[1] = NULL;
+	forleftTk->token[0] = (Token *)idenTk;
+	forleftTk->token[1] = (Token *)secrightTk;
+	idenTk->token = NULL;
 	
-	// return (Token *)idenTk;
-	// }
+	return (Token *)idenTk;
+	}

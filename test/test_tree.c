@@ -103,13 +103,13 @@ test_the_errorTree(void) {
 *				|
 *				+	
 *			/  \
-*		fp		NULL
+*		fb		NULL
 *		|
 *		NULL
 *
-*		float +fp;         
+*		float +fb;         
 */
-test_create_eeror_symbol_with_a_plus(void) {
+test_create_error_symbol_with_a_plus(void) {
 	OperatorToken *opeTk;
 	IdentifierToken *leftTk, *idenTk, *root;
 	

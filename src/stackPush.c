@@ -1,10 +1,10 @@
 #include "stackPush.h"
 #include "tree.h"
-#include "switchCase.h"
 #include "Token.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <malloc.h>
+#include <string.h>
 
 Stack *stackCreate() {
   Stack *stack = malloc (sizeof(Stack));
@@ -28,11 +28,11 @@ StackElement *pop(Stack *stack) {
 	StackElement *tempPtr, *popElem = malloc (sizeof(StackElement));
 
   if (stack->head == NULL) {
-    puts("nothing inside!!!!!!!!");
+    //puts("nothing inside!!!!!!!!");
    return NULL;
   }
   else {
-  printf ("[ head address: %d ]\n", stack->head);
+  //printf ("[ head address: %d ]\n", stack->head);
 	tempPtr = stack->head;
 	popElem->item = tempPtr->item;
 	popElem->next = NULL;
@@ -40,14 +40,14 @@ StackElement *pop(Stack *stack) {
   stack->head = stack->head->next;
   free (tempPtr);
   stack->length -=1;
-	printf("< stack length: %d\n >", stack->length);
-	printf("< remove: %s\n >",popElem->item);
+	printf("< stack length: %d >\n", stack->length);
+	//printf("< remove: %s\n >",popElem->item);
 
    return popElem; 
   }
 }
 
-void push(Stack *stack, void *item){
+void push(Stack *stack, void *item) {
 	StackElement *elem = stackelementCreate(item);
   if (elem == 0){
     puts ("full storage\n");
@@ -59,7 +59,6 @@ void push(Stack *stack, void *item){
     printf ("[@  %s ] -> \n", (char *)elem->item);
 		stack->length=1;
   }
-  
   else {
 		elem->next = stack->head;
 		stack->head = elem;
@@ -68,7 +67,6 @@ void push(Stack *stack, void *item){
   }
 }
 /* 	1) push the token until the left hand side meet the NULL
-*		2) pop the token and read 
 **/
 void PushTree(Token *token, Stack *stack) {
 	if(token != NULL) {
@@ -78,10 +76,78 @@ void PushTree(Token *token, Stack *stack) {
 			PushTree(((IdentifierToken *)token)->token, stack);
 		}
 		else if(token->type == TOKEN_OPERATOR_TYPE) {
-			printf("token symbol = %s \n", ((OperatorToken *)token)->symbol);
-			push(stack, ((OperatorToken *)token));
-      //pop(stack);
-			PushTree(((OperatorToken *)token)->token[0], stack);
+			if (!strcmp(((OperatorToken *)token)->symbol, "[")) {
+					printf("token int = %d \n",  ((IntegerToken *)(((OperatorToken *)token)->token[1]))->value);
+					printf("token symbol = %s \n", ((OperatorToken *)token)->symbol);
+					push(stack, token);
+					PushTree(((OperatorToken *)token)->token[0], stack);
+				}
+			else {
+				printf("token symbol = %s \n", ((OperatorToken *)token)->symbol);
+				push(stack, token);
+				PushTree(((OperatorToken *)token)->token[0], stack);
+			}
 		}		
+	}
+}
+/* 2) pop the token and read the token */
+void removeToken(Token *token, Stack *stack) {
+	if (token != NULL) {
+		if (token->type == TOKEN_IDENTIFIER_TYPE) {
+			pop(stack);
+			removeToken(((IdentifierToken *)token)->token, stack);
+			if (!strcmp(((IdentifierToken *)token)->name, "double")) {
+				printf(" %s.\n", ((IdentifierToken *)token)->name);
+			}
+			else if (!strcmp(((IdentifierToken *)token)->name, "float")) {
+				printf(" %s.\n", ((IdentifierToken *)token)->name);
+			}
+			else if (!strcmp(((IdentifierToken *)token)->name, "char")) {
+				printf(" %s.\n", ((IdentifierToken *)token)->name);
+			}
+			else if (!strcmp(((IdentifierToken *)token)->name, "int")) {
+				printf(" %s.\n", ((IdentifierToken *)token)->name);
+			}
+			else if (!strcmp(((IdentifierToken *)token)->name, "void")) {
+				printf(" %s.\n", ((IdentifierToken *)token)->name);
+			}
+			else if (!strcmp(((IdentifierToken *)token)->name, "unsigned int")) {
+				printf(" %s.\n", ((IdentifierToken *)token)->name);
+			}
+			else if (!strcmp(((IdentifierToken *)token)->name, "unsigned char")) {
+				printf(" %s.\n", ((IdentifierToken *)token)->name);
+			}
+			else if (!strcmp(((IdentifierToken *)token)->name, "short")) {
+				printf(" %s.\n", ((IdentifierToken *)token)->name);
+			}
+			else if (!strcmp(((IdentifierToken *)token)->name, "unsigned short")) {
+				printf(" %s.\n", ((IdentifierToken *)token)->name);
+			}
+			else if (!strcmp(((IdentifierToken *)token)->name, "long")) {
+				printf(" %s.\n", ((IdentifierToken *)token)->name);
+			}
+			else if (!strcmp(((IdentifierToken *)token)->name, "unsigned long")) {
+				printf(" %s.\n", ((IdentifierToken *)token)->name);
+			}
+			else if (!strcmp(((IdentifierToken *)token)->name, "long double")) {
+				printf(" %s.\n", ((IdentifierToken *)token)->name);
+			}
+			else {
+				printf(" %s is", ((IdentifierToken *)token)->name);
+			}
+		}
+		else if (token->type == TOKEN_OPERATOR_TYPE) {
+			pop(stack);
+			removeToken(((OperatorToken *)token)->token[0], stack);
+				if (!strcmp(((OperatorToken *)token)->symbol, "*")) {
+					printf(" pointer to");
+				}
+				else if (!strcmp(((OperatorToken *)token)->symbol, "[")) {
+					printf(" array %d of",  ((IntegerToken *)(((OperatorToken *)token)->token[1]))->value);
+				}
+				else if (!strcmp(((OperatorToken *)token)->symbol, "(")) {
+					printf(" function taking %s returning", ((IdentifierToken *)(((OperatorToken *)token)->token[1]))->name);
+				}
+		}
 	}
 }

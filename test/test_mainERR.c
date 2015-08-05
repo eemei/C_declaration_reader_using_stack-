@@ -7,7 +7,16 @@
 void setUp(void) {}
 void tearDown(void) {}
 
-void test_second_declaration_symbol_is_amphersand(void){
+/*
+*				int 
+*				|
+*				&
+*			/		\
+*			x		2
+*			|
+*		NULL
+*/
+void test_second_declaration_symbol_is_amsersand(void){
 	Token *token;
 	ErrorObject *err;	
 	Token *root;
@@ -22,6 +31,37 @@ void test_second_declaration_symbol_is_amphersand(void){
   }
 }
 
+/*
+*				int 
+*				|
+*				#
+*			/		\
+*			x		2
+*			|
+*		NULL
+*/
+void test_second_declaration_symbol_is_Htag(void) {
+	Token *token;
+	ErrorObject *err;	
+	Token *root;
+	root = tree("int", "#", "x", "2"); 
+	Try {
+		illegalTokenizers(root);
+		TEST_FAIL_MESSAGE("expert ERR_OPERATOR_SYMBOL TO BE THROWN. but none thrown");
+  }Catch(err) {                  // throw go to catch 
+		TEST_ASSERT_EQUAL_STRING("here must be pointer, please check out\n",err->errorMsg);
+		TEST_ASSERT_EQUAL (ERR_OPERATOR_SYMBOL, err->errorCode);
+		freeError(err);               
+  }
+}
+/*					 @# -->operatorTokenType
+*					/	\
+*				*		NULL
+*			/  \
+*	 	x   NULL
+*		|
+*		NULL
+*/
 void test_first_declaration_is_operator_type(void){
 	Token *token;
 	ErrorObject *err;	

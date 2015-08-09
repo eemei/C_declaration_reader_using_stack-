@@ -4,6 +4,6 @@
 #include "ERR_MALFORMED_DECLARATION.h"
 #include "CException.h"
 						
-void	illegalTokenizers(Token *token);
+void illegalTokenizers(Token *token);
 
 #endif // mainERR_H

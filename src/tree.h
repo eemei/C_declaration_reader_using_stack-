@@ -11,6 +11,6 @@ Token *yisPointertoPointer(char *iden, char *firstsymbol, char *secondsymbol, ch
 Token *fooisFunc(char *iden, char *symbol, char *leftTkIden, char *rightTkIden);
 Token *fooisFuncreturnNoth(char *iden, char *symbol, char *leftTkIden, char *rightTkIden);
 Token *dogarrayarray(char *firstsymbol, char *secondsymbol, char *iden, char *leftTkIden, char *firstInt, char *second);
-// Token *yArrayPointer(char *iden, char *firope, char *secope, char *thirdope,			 \
-											// char *intTk, char *forope, char *secintTk, char *leftTkIden);
+Token *yArrayPointer(char *iden, char *firope, char *secope, char *thirdope,			 \
+char *intTk, char *forope, char *secintTk, char *leftTkIden);
 #endif // tree_H;

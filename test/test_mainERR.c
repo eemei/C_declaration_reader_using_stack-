@@ -8,71 +8,71 @@ void setUp(void) {}
 void tearDown(void) {}
 
 /*
-*				int 
-*				|
-*				&
-*			/		\
-*			x		2
-*			|
-*		NULL
+*       int 
+*       |
+*       &
+*     /   \
+*     x   2
+*     |
+*     NULL
 */
 void test_second_declaration_symbol_is_amsersand(void){
-	Token *token;
-	ErrorObject *err;	
-	Token *root;
-	root = tree("int", "&", "x", "2"); 
-	Try {
-		illegalTokenizers(root);
-		TEST_FAIL_MESSAGE("expert ERR_OPERATOR_SYMBOL TO BE THROWN. but none thrown");
-  }Catch(err) {                  // throw go to catch 
-		TEST_ASSERT_EQUAL_STRING("here must be pointer, please check out\n",err->errorMsg);
-		TEST_ASSERT_EQUAL (ERR_OPERATOR_SYMBOL, err->errorCode);
-		freeError(err);               
+  Token *token;
+  ErrorObject *err;	
+  Token *root;
+  root = tree("int", "&", "x", "2"); 
+  Try {
+    illegalTokenizers(root);
+    TEST_FAIL_MESSAGE("expert ERR_OPERATOR_SYMBOL TO BE THROWN. but none thrown");
+  }Catch(err) {     // throw go to catch 
+    TEST_ASSERT_EQUAL_STRING("here must be pointer, please check out\n",err->errorMsg);
+    TEST_ASSERT_EQUAL (ERR_OPERATOR_SYMBOL, err->errorCode);
+    freeError(err);               
   }
 }
 
 /*
-*				int 
-*				|
-*				#
-*			/		\
-*			x		2
-*			|
-*		NULL
+*       int 
+*       |
+*       #
+*     /   \
+*     x		2
+*     |
+*   NULL
 */
 void test_second_declaration_symbol_is_Htag(void) {
-	Token *token;
-	ErrorObject *err;	
-	Token *root;
-	root = tree("int", "#", "x", "2"); 
-	Try {
-		illegalTokenizers(root);
-		TEST_FAIL_MESSAGE("expert ERR_OPERATOR_SYMBOL TO BE THROWN. but none thrown");
+  Token *token;
+  ErrorObject *err;	
+  Token *root;
+  root = tree("int", "#", "x", "2"); 
+  Try {
+    illegalTokenizers(root);
+    TEST_FAIL_MESSAGE("expert ERR_OPERATOR_SYMBOL TO BE THROWN. but none thrown");
   }Catch(err) {                  // throw go to catch 
-		TEST_ASSERT_EQUAL_STRING("here must be pointer, please check out\n",err->errorMsg);
-		TEST_ASSERT_EQUAL (ERR_OPERATOR_SYMBOL, err->errorCode);
-		freeError(err);               
+    TEST_ASSERT_EQUAL_STRING("here must be pointer, please check out\n",err->errorMsg);
+    TEST_ASSERT_EQUAL (ERR_OPERATOR_SYMBOL, err->errorCode);
+    freeError(err);               
   }
 }
-/*					 @# -->operatorTokenType
-*					/	\
-*				*		NULL
-*			/  \
-*	 	x   NULL
-*		|
-*		NULL
+/*          @# -->operatorTokenType
+*         / \
+*        *   NULL
+*    /   \
+*	 	x    NULL
+*   |
+*   NULL
 */
 void test_first_declaration_is_operator_type(void){
-	Token *token;
-	ErrorObject *err;	
-	Token *root;
-	root = errorTree("@#", "*", "x"); 
-	Try {
-		illegalTokenizers(root);
-		TEST_FAIL_MESSAGE("expert ERR_NO_IDENTIFIER_DECLARATION TO BE THROWN. but none thrown");
+  Token *token;
+  ErrorObject *err;	
+  Token *root;
+  root = errorTree("@#", "*", "x"); 
+  Try {
+    illegalTokenizers(root);
+    TEST_FAIL_MESSAGE("expert ERR_NO_IDENTIFIER_DECLARATION TO BE THROWN. but none thrown");
   }Catch(err) {                  // throw go to catch 
-		TEST_ASSERT_EQUAL_STRING("first declaration must be identifier type, please check out\n",err->errorMsg);
-		TEST_ASSERT_EQUAL (ERR_NO_IDENTIFIER_DECLARATION, err->errorCode);
-		freeError(err);               
+    TEST_ASSERT_EQUAL_STRING("first declaration must be identifier type, please check out\n",err->errorMsg);
+    TEST_ASSERT_EQUAL (ERR_NO_IDENTIFIER_DECLARATION, err->errorCode);
+    freeError(err);               
   }
 }

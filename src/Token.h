@@ -4,67 +4,67 @@
 
 
 typedef enum {
-	TOKEN_UNKNOWN_TYPE,
-	TOKEN_INTEGER_TYPE,
-	TOKEN_OPERATOR_TYPE,
-	TOKEN_FLOAT_TYPE,
-	TOKEN_STRING_TYPE,
-	TOKEN_IDENTIFIER_TYPE,
-	TOKEN_END_OF_STRING
+  TOKEN_UNKNOWN_TYPE,
+  TOKEN_INTEGER_TYPE,
+  TOKEN_OPERATOR_TYPE,
+  TOKEN_FLOAT_TYPE,
+  TOKEN_STRING_TYPE,
+  TOKEN_IDENTIFIER_TYPE,
+  TOKEN_END_OF_STRING
 } TokenType;
 
 typedef enum {
-	PREFIX, //-2
-	INFIX,	//2*2
-	POSTFIX	//x++
+  PREFIX, //-2
+  INFIX,	//2*2
+  POSTFIX	//x++
 } Arity;
 
 typedef enum {
-	NONE,
-	LEFT_TO_RIGHT,
-	RIGHT_TO_LEFT,
+  NONE,
+  LEFT_TO_RIGHT,
+  RIGHT_TO_LEFT,
 } Associativity;                                                                                                                                           
 
 typedef struct {
-	TokenType type;
-	uint32_t startColumn;
-	uint32_t length;
-	char *str;
+  TokenType type;
+  uint32_t startColumn;
+  uint32_t length;
+  char *str;
 } Token;
 
 typedef struct {
-	TokenType type;
-	uint32_t startColumn;
-	uint32_t length;
-	int value;
-	char *str;
+  TokenType type;
+  uint32_t startColumn;
+  uint32_t length;
+  int value;
+  char *str;
 } IntegerToken;
 
 typedef struct {
-	TokenType type;
-	uint32_t startColumn;
-	uint32_t length;
-	double value;
-	char *str;
+  TokenType type;
+  uint32_t startColumn;
+  uint32_t length;
+  double value;
+  char *str;
 } FloatToken;
 
 typedef struct {
-	TokenType type;
-	uint32_t startColumn;
-	uint32_t length;
-	char *name;
-	char *str;
-	Token *token; //  attract 
+  TokenType type;
+  uint32_t startColumn;
+  uint32_t length;
+  char *name;
+  char *str;
+  Token *token; //  attract 
 } IdentifierToken, StringToken;
 
 typedef struct {
-	TokenType type;
-	uint32_t startColumn;
-	uint32_t length;
-	char *str;
-	char *symbol;
-	Arity arity;
-	Token *token[0]; // attract
+  TokenType type;
+  uint32_t startColumn;
+  uint32_t length;
+  char *str;
+  char *symbol;
+  Arity arity;
+  Token *token[0]; // attract
 } OperatorToken;
 
 
